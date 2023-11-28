@@ -1,0 +1,48 @@
+from tkinter import*
+import tkinter as tk
+from tkinter import ttk
+import threading
+import time
+
+def start_reading():
+    number = int(number_entry.get())
+    progress_bar['value'] = 0
+    update_progress_bar(number)
+
+def update_progress_bar(number):
+    for i in range(101):
+        time.sleep(0.07)  # 7 seconds total
+        progress_bar['value'] = i
+        progress_label.config(text=f"Reading your mind... {i}%")
+        root.update_idletasks()
+    result_label.config(text=f"You're thinking Number  {number}!")
+
+# GUI setup
+root = Tk()
+root.title("Mind Reader")
+root.geometry('500x400')
+
+frame = tk.Frame(root)
+frame.pack(padx=10, pady=10)
+
+First_label = tk.Label(frame, text="This Program Will Read Your MIND")
+First_label.pack()
+number_label = tk.Label(frame, text="Enter a number (1-10):")
+number_label.pack()
+
+number_entry = tk.Entry(frame)
+number_entry.pack()
+
+read_button = tk.Button(frame, text="Read My Mind", command=start_reading)
+read_button.pack()
+
+progress_bar = ttk.Progressbar(root, orient='horizontal', length=200, mode='determinate')
+progress_bar.pack(pady=10)
+
+progress_label = tk.Label(root, text="Ready")
+progress_label.pack()
+
+result_label = tk.Label(root, text="")
+result_label.pack(pady=10)
+
+root.mainloop()
